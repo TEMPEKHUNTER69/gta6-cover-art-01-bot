@@ -3,20 +3,94 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cover Snap</title>
+<title>Vice Panels — GTA-style cover maker</title>
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-<main class="app">
-  <section class="controls">
-    <h1>Cover Snap</h1>
-    <p>A photo and a caption, made into a square cover.</p>
-    <label>Photo <input id="photo" type="file" accept="image/*"></label>
-    <label>Caption <input id="caption" type="text" maxlength="40" value="Sunset Heist"></label>
-    <button id="export" type="button">Export PNG 1080 x 1080</button>
-    <p id="status" role="status"></p>
+<main class="studio">
+  <section class="panel-controls" aria-label="Cover controls">
+    <header>
+      <h1>Vice Panels</h1>
+      <p class="tag">Turn your photos into a multi-panel Vice City cover. Photos stay on your machine — nothing is uploaded.</p>
+    </header>
+
+    <fieldset>
+      <legend>1 · Photos</legend>
+      <label class="file-btn">Add photos
+        <input id="photos" type="file" accept="image/*" multiple>
+      </label>
+      <div class="row">
+        <button id="sample-boulevard" type="button">Sample: Boulevard</button>
+        <button id="sample-pier" type="button">Sample: Pier</button>
+      </div>
+      <div id="tray" class="tray" aria-label="Your photos"></div>
+      <p id="tray-empty" class="hint">No photos yet — add your own, or try a sample. Click a thumbnail to put it in the selected panel.</p>
+      <button id="fill-all" type="button">Fill all 3 panels with this photo</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>2 · Layout &amp; grade</legend>
+      <div id="layout-btns" class="chips" role="group" aria-label="Layout">
+        <button type="button" data-layout="grid" class="on">Vice Grid</button>
+        <button type="button" data-layout="strip">Neon Strip</button>
+        <button type="button" data-layout="poster">Poster Split</button>
+      </div>
+      <div id="grade-btns" class="chips" role="group" aria-label="Colour grade">
+        <button type="button" data-grade="sunset" class="on">Vice Sunset</button>
+        <button type="button" data-grade="neon">Neon Nights</button>
+        <button type="button" data-grade="midnight">Midnight Palm</button>
+        <button type="button" data-grade="pastel">Pastel Drive</button>
+      </div>
+      <button id="shuffle" type="button">Surprise me — random grade</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>3 · Caption</legend>
+      <label>Title <input id="title" type="text" maxlength="24" value="VICE CITY"></label>
+      <label>Subtitle <input id="subtitle" type="text" maxlength="40" value="Sunset Heist"></label>
+      <div class="row">
+        <label>Lettering
+          <select id="title-style">
+            <option value="block">Block sunset</option>
+            <option value="outline">Outline</option>
+            <option value="neon">Neon glow</option>
+          </select>
+        </label>
+        <label>Title size <input id="title-scale" type="range" min="0.7" max="1.3" step="0.05" value="1"></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>4 · Crop the selected panel</legend>
+      <div id="panel-dots" class="chips" role="group" aria-label="Select panel">
+        <button type="button" class="on">Panel 1</button>
+        <button type="button">Panel 2</button>
+        <button type="button">Panel 3</button>
+      </div>
+      <p id="panel-label" class="hint">Panel 1 of 3</p>
+      <label>Zoom <input id="zoom" type="range" min="1" max="2.5" step="0.05" value="1"> <span id="zoom-out">100%</span></label>
+      <label>Move left–right <input id="pan-x" type="range" min="-1" max="1" step="0.05" value="0"></label>
+      <label>Move up–down <input id="pan-y" type="range" min="-1" max="1" step="0.05" value="0"></label>
+      <button id="reset-crop" type="button">Reset this panel's crop</button>
+      <p class="hint">Tip: click a panel in the preview to select it, or drop photos straight onto the preview.</p>
+    </fieldset>
+
+    <fieldset>
+      <legend>5 · Export</legend>
+      <div id="size-btns" class="chips" role="group" aria-label="Export size">
+        <button type="button" data-size="square">1080 × 1080</button>
+        <button type="button" data-size="portrait">1080 × 1350</button>
+        <button type="button" data-size="wide" class="on">1920 × 1080</button>
+      </div>
+      <button id="export" type="button" class="primary">Export PNG</button>
+      <p id="status" role="status"></p>
+    </fieldset>
   </section>
-  <canvas id="cover" width="1080" height="1080" aria-label="The cover"></canvas>
+
+  <section class="preview" aria-label="Live preview">
+    <canvas id="cover" width="1920" height="1080" aria-label="Your cover, live preview"></canvas>
+    <p class="hint">Live preview — what you see is what the PNG looks like.</p>
+  </section>
 </main>
 <script type="module" src="./src/main.js"></script>
 </body>

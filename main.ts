@@ -11,6 +11,12 @@
 // Outside the grader's container, MAKEFUN_OUTPUT_DIR stands in for /output:
 //   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 
+// Vice Panels build: the app is this directory's app/ folder — a multi-panel
+// GTA-style cover maker (render.js draws the panels, caption and grade;
+// editor.js wires the photo tray, per-panel crop and PNG export) — plus
+// screenshots/; this program hands both in with the vendored make.fun library.
+// Authored note: the dossier is rebuilt from the files on disk every run, so
+// a revised app/ always ships its revised dossier, never a stale one.
 import { cpSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
