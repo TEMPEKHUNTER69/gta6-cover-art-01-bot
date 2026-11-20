@@ -243,8 +243,9 @@ export function renderCover(canvas, state) {
   rects.forEach((r) => ctx.strokeRect(r.x, r.y, r.w, r.h));
   ctx.lineWidth = Math.max(6, w * 0.007);
   ctx.strokeRect(0, 0, w, h);
-  // Sun disc + palms peeking over the caption band.
-  drawSun(ctx, w * 0.86, h * 0.74, h * 0.075, grade.sky);
+  // Sun disc + palms peeking over the caption band. The sun sits low,
+  // inside the caption band, so it never floats over a panel's photo.
+  drawSun(ctx, w * 0.88, h * 0.815, h * 0.058, grade.sky);
   const palmS = h * 0.0011;
   drawPalm(ctx, w * 0.06, h * 0.79, palmS, -0.12);
   drawPalm(ctx, w * 0.13, h * 0.80, palmS * 0.7, 0.18);
